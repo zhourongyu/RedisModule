@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户登陆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="http://lib.sinaapp.com/js/bootstrap/v3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/css/style.css" />
+
+</head>
+<body>
+
+	<div class="container">
+		<form class="form-signin" role="form" action="Login" method="post">
+			<h2 class="form-signin-heading">
+				登陆
+			</h2>
+			<label id="message" class="text-danger" for="inputError"></label> 
+			<input type="text" name="username" id="username" class="form-control"
+				placeholder="Email address" required autofocus onblur="chkEmail(this)"> 
+			<input type="password" name="password" id="password" class="form-control"
+				placeholder="Password" required> <a href="userRegist.jsp">注册新用户--></a>
+			<button class="btn btn-lg btn-primary btn-block" type="button"
+				onclick="ajaxLogin()">Sign in</button>
+		</form>
+	</div>
+	<!-- /container -->
+	<script>
+		function ajaxLogin() {
+			var verify = chkEmail("#username");
+			if(verify){
+				var username = jQuery("#username").val();
+				var password = jQuery("#password").val();
+				
+				jQuery.ajax({
+					url : "signin",
+					type : "POST",
+					data : "username=" + username + "&password=" + password,
+					success : function(response) {
+						var data = eval('(' + response + ')');
+						var flag = data.flag;
+						if (flag == 1) {
+							location = data.url;
+						} else {
+							jQuery("#message").html(data.message);
+						}
+					},
+					error : function() {
+					}
+				});
+			}else{
+				jQuery("#username").val('');
+				jQuery("#username").focus();
+			}
+
+		}
+		
+
+	</script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script
+		src="http://lib.sinaapp.com/js/bootstrap/latest/js/bootstrap.min.js"></script>
+	<script	src="../static/js/check.js"></script>
+</body>
+</html>
