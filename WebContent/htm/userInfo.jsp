@@ -82,7 +82,7 @@
 				</form>
 			</div>
 			<div class="col-md-4">
-				<img alt="140x140" src="http://imim.u.qiniudn.com/1.png"
+				<img alt="200x200" src="<%=request.getAttribute("userImageUrl")%>"
 					class="img-circle" />
 			</div>
 		</div>

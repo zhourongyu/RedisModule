@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.MD5Util;
 import manager.IUserManager;
 import manager.impl.UserManager;
 import net.sf.json.JSONObject;
@@ -51,6 +52,7 @@ public class UserInfo extends HttpServlet {
 					request.setAttribute("nickname",  hm.get("nickname"));
 					request.setAttribute("sex", hm.get("sex") );
 					request.setAttribute("desc",  hm.get("desc"));
+					request.setAttribute("userImageUrl", "http://www.gravatar.com/avatar/"+MD5Util.md5Hex(hm.get("email")));
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/htm/userInfo.jsp");
 					dispatcher.forward(request, response);
 				}else{
